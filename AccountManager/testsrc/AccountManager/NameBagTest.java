@@ -9,22 +9,14 @@ import org.junit.jupiter.api.Test;
 
 class NameBagTest {
 	private NameBag nameBag;
-	private String boysNamesFile;
-	private String girlsNamesFile;
-	private String lastNamesFile;
-	
-	@BeforeEach
-	void setUp() throws Exception {
-		nameBag = new NameBag();
-		boysNamesFile = "boys_names.txt";
-		girlsNamesFile = "girls_names.txt";
-		lastNamesFile = "last_names.txt";
-	}
+	private final String BOYSNAMESFILE = "boys_names.txt";
+	private final String GIRLSNAMESFILE = "girls_names.txt";
+	private final String LASTNAMESFILE = "last_names.txt";
 	
 	@Test
 	void testLoadFile() {
 		try {
-			nameBag.loadNames(boysNamesFile, girlsNamesFile, lastNamesFile);
+			nameBag = new NameBag(BOYSNAMESFILE, GIRLSNAMESFILE, LASTNAMESFILE);
 		} catch(IOException e) {
 			fail(e.getMessage());
 		}
