@@ -19,5 +19,4 @@ class UserAccountTest {
 		assertEquals(false, user.checkPassword("abCd123$"));
 		assertEquals(false, user.checkPassword(""));
 	}
-
 }
