@@ -1,9 +1,14 @@
-package AccountManager;
+package AccountManagerTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import AccountManager.UserAccount;
+import AccountManager.UserBag;
 
 class UserBagTest {
 	private UserBag userBag;
@@ -57,5 +62,14 @@ class UserBagTest {
 		assertEquals(false, userBag.loginUser(user1.getUserName(), "1234"));
 		assertEquals(false, userBag.loginUser("SweeT7", "Abdcf81#"));
 	}
-
+	
+	@Test
+	void testGetUserList() {
+		ArrayList<String> users = userBag.getUserList();
+		assertEquals(true, users.contains(user1.getUserName()));
+		assertEquals(true, users.contains(user2.getUserName()));
+		assertEquals(false, users.contains(null));
+		assertEquals(false, users.contains(""));
+		assertEquals(false, users.contains("Abgdk12"));
+	}
 }

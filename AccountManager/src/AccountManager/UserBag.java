@@ -1,5 +1,6 @@
 package AccountManager;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Random;
@@ -11,6 +12,14 @@ public class UserBag {
 	public UserBag(int size) {
 		userBag = new Hashtable<String, UserAccount>(size);
 		idBag = new HashSet<String>(size);
+	}
+	
+	public UserBag() {
+		this(5000);
+	}
+	
+	public ArrayList<String> getUserList(){
+		return new ArrayList<String>(userBag.keySet());
 	}
 
 	public void addUser(UserAccount user) {
