@@ -1,6 +1,9 @@
 package AccountManager;
 
+import java.util.regex.Pattern;
+
 public class UserAccount {
+	private static String passwordValidatorRegEx = ".*[\\Q !\"\\#$%&'()*+,-./:;<=>?@[]^_`{|}~\\E].*";
 	private String firstName;
 	private String lastName;
 	private String userID;
@@ -17,6 +20,22 @@ public class UserAccount {
 		this.userName = userName;
 		this.password = password;
 		this.GPA = GPA;
+	}
+	
+	public static boolean validatePassword(String password) {
+		if(password==null)
+			return false;
+		if(password.length() < 8)
+			return false;
+		if(!Pattern.matches("^.*[A-Z].*", password))
+			return false;
+		if(!Pattern.matches("^.*[a-z].*", password))
+			return false;
+		if(!Pattern.matches("^.*\\d.*", password))
+			return false;
+		if(!Pattern.matches(passwordValidatorRegEx, password))
+			return false;
+		return true;
 	}
 	
 	public String getFirstName() {
