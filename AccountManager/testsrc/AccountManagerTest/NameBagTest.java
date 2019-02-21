@@ -1,4 +1,4 @@
-package AccountManager;
+package AccountManagerTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import AccountManager.NameBag;
 
 class NameBagTest {
 	private NameBag nameBag;
