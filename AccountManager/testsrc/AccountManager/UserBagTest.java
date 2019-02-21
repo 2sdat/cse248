@@ -27,18 +27,6 @@ class UserBagTest {
 		userIDDupe = new UserAccount("Peter", "Courntey", "12345678", true, "CourP8", "Abg34%", 1.5);
 		userNotInBag = new UserAccount("Alba", "Tribino", "98765432", false, "TribA2", "Abgfkkj1@", 3.5);
 	}
-
-	@Test
-	void testCheckUserNameExists() {
-		assertEquals(true, userBag.checkUserNameExists(user1.getUserName()));
-		assertEquals(false, userBag.checkUserNameExists(userNotInBag.getUserName()));
-	}
-	
-	@Test
-	void testCheckIDExists() {
-		assertEquals(true, userBag.checkIDExists(user1.getUserID()));
-		assertEquals(false, userBag.checkIDExists(userNotInBag.getUserID()));
-	}
 	
 	@Test
 	void testAddUser() {
@@ -50,6 +38,16 @@ class UserBagTest {
 		
 		assertThrows(IllegalArgumentException.class, () -> {userBag.addUser(userNameDupe);});
 		assertThrows(IllegalArgumentException.class, () -> {userBag.addUser(userIDDupe);});
+	}
+	
+	@Test
+	void testAddNewUser() {
+		assertThrows(IllegalArgumentException.class, () -> {userBag.addNewUser("Aidan", "Courtney", true, "CourA8", "Abcd123$", 3.99);});
+		try {
+			userBag.addNewUser("Theresa", "Sweeney", false, "Abcd123%", 2.55);
+		} catch(Exception e) {
+			fail(e.getMessage());
+		}
 	}
 	
 	@Test

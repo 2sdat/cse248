@@ -1,14 +1,16 @@
 package AccountManager;
 
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Random;
 
 public class UserBag {
-	private Hashtable<String,UserAccount> userBag;
-	private Hashtable<String, String> idBag;
+	private Hashtable<String, UserAccount> userBag;
+	private HashSet<String> idBag;
 	
 	public UserBag(int size) {
 		userBag = new Hashtable<String, UserAccount>(size);
-		idBag = new Hashtable<String, String>(size);
+		idBag = new HashSet<String>(size);
 	}
 
 	public void addUser(UserAccount user) {
@@ -17,8 +19,8 @@ public class UserBag {
 		
 		if(!checkUserNameExists(userName)) {
 			if(!checkIDExists(userID)) {
-				idBag.put(userName, userID);
-				userBag.put(userID, user);
+				idBag.add(userID);
+				userBag.put(userName, user);
 				return;
 			}
 			
@@ -27,19 +29,38 @@ public class UserBag {
 			
 		throw new IllegalArgumentException("Account for user '" + user.getUserName() + "' already exists");
 	}
-
-	public boolean checkUserNameExists(String userName) {
-		return idBag.containsKey(userName);
+	
+	public void addNewUser(String firstName, String lastName, boolean isMale, String password, double GPA) {
+		String userName = lastName.substring(0, Math.min(lastName.length(), 4)) + firstName.charAt(0);
+		String id;
+		while(checkIDExists(id = genID()) && checkUserNameExists(userName+id.charAt(7)));
+		addUser(new UserAccount(firstName, lastName, id, isMale, userName, password, GPA));
 	}
 	
-	public boolean checkIDExists(String userID) {
-		return userBag.containsKey(userID);
+	public void addNewUser(String firstName, String lastName, boolean isMale, String userName, String password, double GPA) {
+		if(checkUserNameExists(userName))
+			throw new IllegalArgumentException("An account with the username '" + userName + "' already exists.");
+		addUser(new UserAccount(firstName, lastName, genID(), isMale, userName, password, GPA));
+	}
+	
+	private String genID() {
+		String id;
+		Random rand = new Random();
+		while(checkIDExists(id = Integer.toString(rand.nextInt(100000000))));
+		return id;
+	}
+
+	private boolean checkUserNameExists(String userName) {
+		return userBag.containsKey(userName);
+	}
+	
+	private boolean checkIDExists(String userID) {
+		return idBag.contains(userID);
 	}
 
 	public boolean loginUser(String userName, String password) {
 		if(checkUserNameExists(userName))
-			return userBag.get(idBag.get(userName)).checkPassword(password);
+			return userBag.get(userName).checkPassword(password);
 		return false;
 	}
-	
 }
