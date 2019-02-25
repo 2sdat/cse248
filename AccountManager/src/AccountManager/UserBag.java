@@ -56,6 +56,19 @@ public class UserBag {
 		addUser(new UserAccount(firstName, lastName, genID(), isMale, userName, password, GPA));
 	}
 	
+	public UserAccount getUser(String userName, String password) {
+		if(checkUserNameExists(userName)) {
+			UserAccount user = userBag.get(userName);
+			if(user.checkPassword(password)) {
+				return user;
+			} else {
+				throw new IllegalArgumentException("Incorrect Password");
+			}
+		} else {
+			throw new IllegalArgumentException("Incorrect Username");
+		}
+	}
+	
 	private String genID() {
 		String id;
 		Random rand = new Random();
@@ -63,7 +76,7 @@ public class UserBag {
 		return id;
 	}
 
-	private boolean checkUserNameExists(String userName) {
+	public boolean checkUserNameExists(String userName) {
 		return userBag.containsKey(userName);
 	}
 	
