@@ -3,10 +3,14 @@ package AccountManagerTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import AccountManager.UserAccount;
 import AccountManager.UserAccountFactory;
 import AccountManager.UserBag;
 
@@ -25,9 +29,20 @@ class UserAccountFactoryTest {
 	void testCreateUsers() {
 		try {
 			UserBag userBag = userFactory.populateUserBag();
-			ArrayList<String> users = userBag.getUserList();
+			Hashtable<String, UserAccount> users = userBag.getUsers();
 			assertEquals(3000, users.size());
+			HashSet<String> userNameSet = new HashSet<String>();
+			HashSet<String> idSet = new HashSet<String>();
+			for(Map.Entry<String, UserAccount> user : users.entrySet()) {
+				assertEquals(true, userNameSet.add(user.getValue().getUserName()));
+				assertEquals(true, idSet.add(user.getValue().getUserID()));
+				assertEquals(true, 0.0 <= user.getValue().getGPA() && user.getValue().getGPA() <= 4.0);
+				assertEquals(true, UserAccount.validatePassword(user.getValue().getPassword()));
+				assertEquals(user.getValue().isMale(), userFactory.nameBag.isMale(user.getValue().getFirstName()));
+			}
+			
 		} catch(Exception e) {
+			e.printStackTrace();
 			fail(e.getMessage());
 		}
 	}

@@ -65,4 +65,8 @@ public class NameBag {
 		Random rand = new Random();
 		return lastNames.get(rand.nextInt(lastNames.size()));
 	}
+	
+	public boolean isMale(String name) {
+		return boysNames.contains(name);
+	}
 }

@@ -63,6 +63,10 @@ public class UserAccount {
 		return this.password.equals(password);
 	}
 	
+	public String getPassword() {
+		return this.password;
+	}
+	
 	public double getGPA() {
 		return GPA;
 	}

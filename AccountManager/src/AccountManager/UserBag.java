@@ -21,6 +21,10 @@ public class UserBag {
 	public ArrayList<String> getUserList(){
 		return new ArrayList<String>(userBag.keySet());
 	}
+	
+	public Hashtable<String, UserAccount> getUsers(){
+		return userBag;
+	}
 
 	public void addUser(UserAccount user) {
 		String userName = user.getUserName();
@@ -42,7 +46,7 @@ public class UserBag {
 	public void addNewUser(String firstName, String lastName, boolean isMale, String password, double GPA) {
 		String userName = lastName.substring(0, Math.min(lastName.length(), 4)) + firstName.charAt(0);
 		String id;
-		while(checkIDExists(id = genID()) && checkUserNameExists(userName+id.charAt(7)));
+		while(checkIDExists(id = genID()) || checkUserNameExists(userName += id.charAt(7)));
 		addUser(new UserAccount(firstName, lastName, id, isMale, userName, password, GPA));
 	}
 	
@@ -55,7 +59,7 @@ public class UserBag {
 	private String genID() {
 		String id;
 		Random rand = new Random();
-		while(checkIDExists(id = Integer.toString(rand.nextInt(100000000))));
+		while(checkIDExists(id = String.format("%08d",rand.nextInt(100000000))));
 		return id;
 	}
 

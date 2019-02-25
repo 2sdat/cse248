@@ -1,11 +1,10 @@
 package AccountManager;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class UserAccountFactory {
-	private NameBag nameBag;
+	public NameBag nameBag;
 	private boolean isMale;
 	private Random rand;
 	private final String ALPHAUPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -24,7 +23,7 @@ public class UserAccountFactory {
 		for(int i = 0; i < 3000; i++) {
 			userBag.addNewUser(emitFirstName(), emitLastName(), isMale, emitPassword(), emitGPA());
 		}
-		return new UserBag();
+		return userBag;
 	}
 
 	private double emitGPA() {
@@ -41,16 +40,12 @@ public class UserAccountFactory {
 			switch(rand.nextInt(4)) {
 			case 0:
 				password += ALPHAUPPER.charAt(rand.nextInt(ALPHAUPPER.length()));
-				break;
 			case 1:
 				password += ALPHALOWER.charAt(rand.nextInt(ALPHALOWER.length()));
-				break;
 			case 2:
 				password += DIGITS.charAt(rand.nextInt(DIGITS.length()));
-				break;
 			case 3:
 				password += SPECCHARS.charAt(rand.nextInt(SPECCHARS.length()));
-				break;
 			}
 		}
 		return password;
