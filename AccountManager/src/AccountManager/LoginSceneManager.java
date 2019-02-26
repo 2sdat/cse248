@@ -18,8 +18,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 public class LoginSceneManager {
+	private Stage primaryStage;
 	private Scene sceneLogin;
 	private Label lblLogin;
 	private Label lblNoticeLogin;
@@ -31,7 +33,8 @@ public class LoginSceneManager {
 	private GridPane gridPane;
 	private VBox vbox;
 	
-	public LoginSceneManager() {
+	public LoginSceneManager(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 		createScene();
 	}
 	
@@ -102,7 +105,10 @@ public class LoginSceneManager {
 		return sceneLogin;
 	}
 	
-	public void changeFocus() {
+	public void makeActive() {
+		resetTextFields();
+		primaryStage.setScene(sceneLogin);
+		primaryStage.sizeToScene();
 		sceneLogin.getRoot().requestFocus();
 	}
 }

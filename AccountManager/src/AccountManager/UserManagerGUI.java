@@ -20,15 +20,15 @@ public class UserManagerGUI extends Application{
 		this.primaryStage = stage;
 		primaryStage.setTitle("User Account Manager");
 		
-		loginSceneManager = new LoginSceneManager();
+		loginSceneManager = new LoginSceneManager(primaryStage);
 		loginSceneManager.setLoginButtonAction(action -> {requestLogin(loginSceneManager.getUserNameAndPassword());});
 		loginSceneManager.setNewUserButtonAction(action -> {requestNewUser();});
 		
-		newUserSceneManager = new NewUserSceneManager();
+		newUserSceneManager = new NewUserSceneManager(primaryStage);
 		newUserSceneManager.setCreateButtonAction(action -> {requestCreateUser(newUserSceneManager.getTextFieldData());});
 		newUserSceneManager.setCancelButtonAction(action -> {requestCancel();});
 		
-		userAccountSceneManager = new UserAccountSceneManager();
+		userAccountSceneManager = new UserAccountSceneManager(primaryStage);
 		userAccountSceneManager.setLogoutButtonAction(action -> {requestLogOut();});
 		
 		
@@ -50,16 +50,16 @@ public class UserManagerGUI extends Application{
 		boolean loginSuccessful = userBag.loginUser(userData[0], userData[1]);
 		if(loginSuccessful) {
 			loginSceneManager.setNotice("Login Successful!");
+			userAccountSceneManager.addUserDirectory(userBag);
 			userAccountSceneManager.createScene(userBag.getUser(userData[0], userData[1]));
-			primaryStage.setScene(userAccountSceneManager.getScene());
+			userAccountSceneManager.makeActive();
 		} else {
 			loginSceneManager.setNotice("The username and/or password\n you entered was incorrect.");
 		}
 	}
 	
 	private void requestNewUser() {
-		primaryStage.setScene(newUserSceneManager.getScene());
-		newUserSceneManager.changeFocus();
+		newUserSceneManager.makeActive();
 	}
 		
 	private void requestCreateUser(String[] userData) {
@@ -96,25 +96,19 @@ public class UserManagerGUI extends Application{
 		
 		userBag.addNewUser(userData[firstNameIndex], userData[lastNameIndex], isMale, userData[userNameIndex], userData[passwordIndex], gpa);
 		loginSceneManager.setNotice("Account successfully created!\nYou may now login.");
-		
-		primaryStage.setScene(loginSceneManager.getScene());
-		loginSceneManager.changeFocus();
-		loginSceneManager.resetTextFields();
+
+		loginSceneManager.makeActive();
 	}
 	
 	private void requestCancel() {
 		loginSceneManager.setNotice("");
-		loginSceneManager.resetTextFields();
-		primaryStage.setScene(loginSceneManager.getScene());
-		loginSceneManager.changeFocus();
+		loginSceneManager.makeActive();
 	}
 	
 	
 	private void requestLogOut() {
 		loginSceneManager.setNotice("Successfully logged out.");
-		loginSceneManager.resetTextFields();
-		primaryStage.setScene(loginSceneManager.getScene());
-		loginSceneManager.changeFocus();
+		loginSceneManager.makeActive();
 		userAccountSceneManager.destroyScene();
 	}
 	

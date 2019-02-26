@@ -19,7 +19,7 @@ public class UserAccount {
 		this.isMale = isMale;
 		this.userName = userName;
 		this.password = password;
-		this.GPA = GPA;
+		this.GPA = Math.round(100.0*GPA)/100.0;
 	}
 	
 	public static boolean validatePassword(String password) {

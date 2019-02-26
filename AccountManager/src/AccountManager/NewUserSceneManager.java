@@ -18,8 +18,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 public class NewUserSceneManager {
+	private Stage primaryStage;
 	private Scene sceneNewUser;
 	private Label lblNewUser;
 	private Label lblNoticeNewUser;
@@ -35,7 +37,8 @@ public class NewUserSceneManager {
 	private GridPane gridPane;
 	
 	
-	public NewUserSceneManager() {
+	public NewUserSceneManager(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 		createScene();
 	}
 	
@@ -131,7 +134,10 @@ public class NewUserSceneManager {
 		return sceneNewUser;
 	}
 	
-	public void changeFocus() {
+	public void makeActive() {
+		resetTextFields();
+		primaryStage.setScene(sceneNewUser);
+		primaryStage.sizeToScene();
 		sceneNewUser.getRoot().requestFocus();
 	}
 }
