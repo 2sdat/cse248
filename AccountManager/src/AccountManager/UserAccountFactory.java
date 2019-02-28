@@ -13,8 +13,8 @@ public class UserAccountFactory {
 	private final String SPECCHARS = " !\\\"\\\\#$%&'()*+,-./:;<=>?@[]^_`{|}~";
 	
 	
-	public UserAccountFactory(String boysNamesFile, String girlsNamesFile, String lastNamesFile) throws IOException {
-		nameBag = new NameBag(boysNamesFile, girlsNamesFile, lastNamesFile);
+	public UserAccountFactory() throws IOException {
+		nameBag = new NameBag();
 	}
 	
 	public UserBag populateUserBag() {

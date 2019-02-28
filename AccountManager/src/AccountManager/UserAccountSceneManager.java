@@ -118,6 +118,7 @@ public class UserAccountSceneManager {
 		sceneUserAccount = null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void addUserDirectory(UserBag userBag) {
 		tableUsers = new TableView<UserAccount>();
 		TableColumn<UserAccount, String> nameCol = new TableColumn<UserAccount, String>("Name");
