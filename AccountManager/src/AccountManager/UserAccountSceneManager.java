@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -83,16 +84,19 @@ public class UserAccountSceneManager {
 		if(tableUsers != null) {
 			Label lblDirectory = new Label("Directory");
 			lblDirectory.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
+			lblDirectory.setTextFill(Color.WHITE);
+			lblDirectory.setAlignment(Pos.CENTER);
 			VBox vboxDirectory = new VBox(lblDirectory, tableUsers);
 			
 			HBox hbox = new HBox(vbox, vboxDirectory);
 			hbox.setSpacing(10);
 			hbox.setBackground(new Background(new BackgroundFill(Color.NAVY, null, null)));
 			hbox.setAlignment(Pos.CENTER);
-		
-			sceneUserAccount =  new Scene(hbox, 300, 300, Color.BLACK);
+			hbox.setPadding(new Insets(15, 15, 15, 15));
+			sceneUserAccount =  new Scene(hbox, Color.BLACK);
 		} else {
-			sceneUserAccount =  new Scene(vbox, 300, 300, Color.BLACK);
+			vbox.setPadding(new Insets(15, 15, 15, 15));
+			sceneUserAccount =  new Scene(vbox, Color.BLACK);
 		}
 	}
 	
@@ -138,6 +142,13 @@ public class UserAccountSceneManager {
 			}
 		});
 		
+		TableColumn<UserAccount, String> userIDCol = new TableColumn<UserAccount, String>("User ID");
+		userIDCol.setCellValueFactory(new Callback<CellDataFeatures<UserAccount, String>, ObservableValue<String>>(){
+			public ObservableValue<String> call(CellDataFeatures<UserAccount, String> p) {
+				return new SimpleStringProperty(p.getValue().getUserID());
+			}
+		});
+		
 		TableColumn<UserAccount, String> genderCol = new TableColumn<UserAccount, String>("Gender");
 		genderCol.setCellValueFactory(new Callback<CellDataFeatures<UserAccount, String>, ObservableValue<String>>(){
 			public ObservableValue<String> call(CellDataFeatures<UserAccount, String> p) {
@@ -156,6 +167,6 @@ public class UserAccountSceneManager {
 		});
 		
 		tableUsers.setItems(FXCollections.observableArrayList(userBag.getUsers().values()));
-		tableUsers.getColumns().addAll(nameCol, userNameCol, genderCol, gpaCol);
+		tableUsers.getColumns().addAll(nameCol, userNameCol, userIDCol, genderCol, gpaCol);
 	}
 }

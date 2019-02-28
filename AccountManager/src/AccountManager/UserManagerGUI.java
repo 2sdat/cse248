@@ -41,9 +41,8 @@ public class UserManagerGUI extends Application{
 			userBag = new UserBag();
 		}
 		
-		primaryStage.setScene(loginSceneManager.getScene());
+		loginSceneManager.makeActive();
 		primaryStage.show();
-		loginSceneManager.changeFocus();
 	}
 	
 	private void requestLogin(String[] userData) {
