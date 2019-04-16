@@ -1,4 +1,4 @@
-package AddressesPhoneNumbers;
+package Factory_Pattern;
 
 public class USAddress extends Address {
 	private static final String COUNTRY = "U.S.A.";

@@ -1,4 +1,4 @@
-package AddressesPhoneNumbers;
+package Factory_Pattern;
 
 public abstract class Address {
 	private String street;

@@ -1,4 +1,4 @@
-package AddressesPhoneNumbers;
+package Factory_Pattern;
 
 public class USPhoneNumber extends Phone {
 	private static final String COUNTRY_CODE = "01";

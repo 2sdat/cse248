@@ -1,4 +1,4 @@
-package AddressesPhoneNumbers;
+package Factory_Pattern;
 
 public class USAddressFactory implements AddressFactory {
 
