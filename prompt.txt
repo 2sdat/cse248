@@ -1,0 +1,1 @@
+\e[96m[\e[92m\d \e[91m\t\e[96m][\e[34m\u\e[96m]\e[37m<\e[97m\w\e[37m>\e[35m[\e[96m`git branch 2>/dev/null | grep '^*' | colrm 1 2`\e[35m]\e[92m>>\e[97m
