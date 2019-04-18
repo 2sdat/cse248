@@ -1,4 +1,4 @@
 
 public interface ITemp {
-	double letsConvert(double temp);
+	double letsConvertToCelsius(double temp);
 }
